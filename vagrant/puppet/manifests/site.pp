@@ -1,0 +1,1 @@
+# Empty puppet config file
