@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.box = 'centos-6.5-x86_64'
 
-    config.vm.synced_folder '../config', '/vagrant_config'
+    config.vm.synced_folder '../config', '/config'
 
     config.vm.provider :virtualbox do |vb, override|
         vb.gui              = false
@@ -19,9 +19,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.box_url = '../../../boxes/vmware/centos-6.5-x86_64.box'
     end
 
+    config.vm.provision :shell do |shell|
+        shell.inline = 'cd /config && gem install r10k && r10k puppetfile install'
+    end
+
     config.vm.provision :puppet do |puppet|
         puppet.manifests_path = '../config/manifests'
-        puppet.module_path    = '../config/modules'
+        puppet.module_path    = '../config/site', '../config/modules'
         puppet.manifest_file  = 'site.pp'
     end
 
