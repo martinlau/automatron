@@ -9,7 +9,6 @@ An end to end configuration of:
 * [Puppet][puppet] and [Chef][chef] for provisioning the application platform within that environment
 * and more to come to build code, deploy, run tests, etc...
 
-
 Pre-requisites
 --------------
 
@@ -120,6 +119,7 @@ Which you can then use with [Vagrant][vagrant] (again, replacing `vmware_fusion`
 
 ```
 
+ $ cd ../../vagrant/fedora/puppet
  $ vagrant up --provider vmware_fusion
 Bringing machine 'default' up with 'vmware_fusion' provider...
 [default] Cloning VMware VM: 'fedora-20-x86_64'. This can take some time...
