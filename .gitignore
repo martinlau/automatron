@@ -1,0 +1,9 @@
+*.box
+*.iml
+*.ipr
+*.iws
+.idea/
+.vagrant/
+output-virtualbox-iso/
+output-vmware-iso/
+packer-cache/

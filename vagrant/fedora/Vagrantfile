@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+    config.vm.box = "fedora-20-x86_64"
+
+    config.vm.provider :virtualbox do |_, override|
+        override.vm.box_url = "../../boxes/virtualbox/fedora-20-x86_64.box"
+    end
+
+    config.vm.provider :vmware_fusion do |_, override|
+        override.vm.box_url = "../../boxes/vmware/fedora-20-x86_64.box"
+    end
+
+end
