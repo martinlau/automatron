@@ -24,7 +24,7 @@ Running
 
 Depending on which virtual machine you're using, you'll need to run something like the following (possibly replacing `vmware-iso` with `virtualbox-iso`).
 
-```bash
+```
 
 packer build --only=vmware-iso fedora-20-x86_64.json
 
@@ -107,7 +107,7 @@ Build 'vmware-iso' finished.
 
 At this point, you should have a .box image which you can boot [Vagrant][vagrant] from:
 
-```bash
+```
 
  $ ls -l ../../boxes/vmware/
 total 2026440
@@ -119,7 +119,7 @@ total 2026440
 
 Which you can then use with [Vagrant][vagrant] (again, replacing `vmware_fusion` with `virtualbox` as necessary):
 
-```bash
+```
 
  $ vagrant up --provider vmware_fusion
 Bringing machine 'default' up with 'vmware_fusion' provider...
