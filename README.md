@@ -119,7 +119,7 @@ Which you can then use with [Vagrant][vagrant] (again, replacing `vmware_fusion`
 
 ```
 
- $ cd ../../vagrant/fedora/puppet
+ $ cd ../../vagrant/puppet/fedora
  $ vagrant up --provider vmware_fusion
 Bringing machine 'default' up with 'vmware_fusion' provider...
 [default] Cloning VMware VM: 'fedora-20-x86_64'. This can take some time...
