@@ -114,7 +114,6 @@ total 2026440
 -rw-r--r--  1 martin  staff          0 13 Feb 13:11 empty.txt
 -rw-r--r--  1 martin  staff  551650917 14 Feb 14:08 fedora-20-x86_64.box
 
-
 ```
 
 Which you can then use with [Vagrant][vagrant] (again, replacing `vmware_fusion` with `virtualbox` as necessary):
