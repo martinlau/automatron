@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.provision :shell do |shell|
-        shell.inline = 'gem install r10k; cd /config; /usr/bin/r10k puppetfile install'
+        shell.inline = '`gem list r10k -i` || gem install r10k; cd /config; /usr/bin/r10k puppetfile install'
     end
 
     config.vm.provision :puppet do |puppet|
