@@ -1,0 +1,139 @@
+{
+    "variables"      : {
+        "name"                    : "ubuntu",
+        "version"                 : "13.10",
+        "arch"                    : "x86_64",
+        "http_directory"          : "http",
+        "iso_url"                 : "http://mirror.aarnet.edu.au/pub/ubuntu/releases/saucy/ubuntu-13.10-server-amd64.iso",
+        "iso_checksum"            : "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
+        "iso_checksum_type"       : "sha256",
+        "ssh_username"            : "vagrant",
+        "ssh_password"            : "vagrant",
+        "ssh_wait_timeout"        : "15m",
+        "boot_wait"               : "15s",
+        "shutdown_command"        : "sudo shutdown -hP +1; exit",
+        "shutdown_timeout"        : "5m",
+        "disk_size"               : "8192",
+        "mem_size"                : "512",
+        "num_cpus"                : "1",
+        "num_cores"               : "1",
+        "vagrant_public_key"      : "https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub",
+        "vmware_tools_iso"        : "/home/vagrant/linux.iso",
+        "virtualbox_additions_iso": "/home/vagrant/VBoxGuestAdditions.iso",
+        "chef_install"            : "true",
+        "chef_install_url"        : "https://www.opscode.com/chef/install.sh",
+        "puppet_install"          : "true",
+        "puppet_repository_deb"   : "https://apt.puppetlabs.com/puppetlabs-release-precise.deb",
+        "compression_level"       : "9",
+        "boxes_path"              : "../../boxes"
+    },
+    "builders"       : [
+        {
+            "type"               : "vmware-iso",
+            "guest_os_type"      : "fedora-64",
+            "tools_upload_flavor": "linux",
+            "vm_name"            : "{{ user `name` }}-{{ user `version` }}-{{ user `arch` }}",
+            "http_directory"     : "{{ user `http_directory` }}",
+            "iso_url"            : "{{ user `iso_url` }}",
+            "iso_checksum"       : "{{ user `iso_checksum` }}",
+            "iso_checksum_type"  : "{{ user `iso_checksum_type` }}",
+            "ssh_username"       : "{{ user `ssh_username` }}",
+            "ssh_password"       : "{{ user `ssh_password` }}",
+            "ssh_wait_timeout"   : "{{ user `ssh_wait_timeout` }}",
+            "boot_wait"          : "{{ user `boot_wait` }}",
+            "boot_command"       : [
+                "<esc><esc><enter><wait>",
+                "/install/vmlinuz",
+                " auto",
+                " console-setup/ask_detect=false",
+                " kbd-chooser/method=us",
+                " keyboard-configuration/layout=us",
+                " keyboard-configuration/variant=us",
+                " initrd=/install/initrd.gz",
+                " locale=en_US",
+                " netcfg/get_hostname=ubuntu-vagrant",
+                " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+                " -- ",
+                "<enter>"
+            ],
+            "shutdown_command"   : "{{ user `shutdown_command` }}",
+            "shutdown_timeout"   : "{{ user `shutdown_timeout` }}",
+            "disk_size"          : "{{ user `disk_size` }}",
+            "vmdk_name"          : "{{ user `name` }}-{{ user `version` }}-{{ user `arch` }}",
+            "vmx_data"           : {
+                "memsize"             : "{{ user `mem_size` }}",
+                "numvcpus"            : "{{ user `num_cpus` }}",
+                "cpuid.coresPerSocket": "{{ user `num_cores` }}"
+            }
+        },
+        {
+            "type"                : "virtualbox-iso",
+            "guest_os_type"       : "Fedora_64",
+            "vm_name"             : "{{ user `name` }}-{{ user `version` }}-{{ user `arch` }}",
+            "http_directory"      : "{{ user `http_directory` }}",
+            "iso_url"             : "{{ user `iso_url` }}",
+            "iso_checksum"        : "{{ user `iso_checksum` }}",
+            "iso_checksum_type"   : "{{ user `iso_checksum_type` }}",
+            "ssh_username"        : "{{ user `ssh_username` }}",
+            "ssh_password"        : "{{ user `ssh_password` }}",
+            "ssh_wait_timeout"    : "{{ user `ssh_wait_timeout` }}",
+            "boot_wait"           : "{{ user `boot_wait` }}",
+            "boot_command"        : [
+                "<esc><esc><enter><wait>",
+                "/install/vmlinuz",
+                " auto",
+                " console-setup/ask_detect=false",
+                " kbd-chooser/method=us",
+                " keyboard-configuration/layout=us",
+                " keyboard-configuration/variant=us",
+                " initrd=/install/initrd.gz",
+                " locale=en_US",
+                " netcfg/get_hostname=ubuntu-vagrant",
+                " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+                " -- ",
+                "<enter>"
+            ],
+            "shutdown_command"    : "{{ user `shutdown_command` }}",
+            "shutdown_timeout"    : "{{ user `shutdown_timeout` }}",
+            "disk_size"           : "{{ user `disk_size` }}",
+            "hard_drive_interface": "sata",
+            "vboxmanage"          : [
+                ["modifyvm", "{{ .Name }}", "--memory", "{{ user `mem_size` }}"],
+                ["modifyvm", "{{ .Name }}", "--cpus", "{{ user `num_cpus` }}"]
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type"            : "shell",
+            "execute_command" : "{{ .Vars }} sudo -E bash '{{ .Path }}'",
+            "environment_vars": [
+                "CHEF_INSTALL={{ user `chef_install` }}",
+                "CHEF_INSTALL_URL={{user `chef_install_url` }}",
+                "PUPPET_INSTALL={{ user `puppet_install` }}",
+                "PUPPET_REPOSITORY_DEB={{ user `puppet_repository_deb` }}",
+                "VAGRANT_PUBLIC_KEY={{ user `vagrant_public_key` }}",
+                "VIRTUALBOX_ADDITIONS_ISO={{ user `virtualbox_additions_iso` }}",
+                "VMWARE_TOOLS_ISO={{ user `vmware_tools_iso` }}"
+            ],
+            "scripts"         : [
+                "script/01_update.sh",
+                "script/21_sshd.sh",
+                "script/40_vmtools.sh",
+                "script/60_vagrant.sh",
+                "script/61_chef.sh",
+                "script/62_puppet.sh",
+                "script/98_cleanup.sh",
+                "script/99_zero.sh"
+            ]
+        }
+    ],
+    "post-processors": [
+        {
+            "type"               : "vagrant",
+            "compression_level"  : "{{ user `compression_level` }}",
+            "keep_input_artifact": true,
+            "output"             : "{{ user `boxes_path` }}/{{ .Provider }}/{{ user `name` }}-{{ user `version` }}-{{ user `arch` }}.box"
+        }
+    ]
+}
