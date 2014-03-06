@@ -5,5 +5,4 @@ apt-get clean
 
 echo "Clearing out /tmp and /var"
 rm -rf /tmp/* \
-       /var/cache/* \
        /var/tmp/*
