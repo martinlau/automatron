@@ -4,8 +4,8 @@
         "version"                 : "20",
         "arch"                    : "x86_64",
         "http_directory"          : "http",
-        "iso_url"                 : "http://mirror.optus.net/pub/fedora/linux/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-netinst.iso",
-        "iso_checksum"            : "376be7d4855ad6281cb139430606a782fd6189dcb01d7b61448e915802cc350f",
+        "iso_url"                 : "http://mirror.aarnet.edu.au/pub/fedora/linux/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-DVD.iso",
+        "iso_checksum"            : "f2eeed5102b8890e9e6f4b9053717fe73031e699c4b76dc7028749ab66e7f917",
         "iso_checksum_type"       : "sha256",
         "ssh_username"            : "vagrant",
         "ssh_password"            : "vagrant",
@@ -42,7 +42,12 @@
             "ssh_wait_timeout"   : "{{ user `ssh_wait_timeout` }}",
             "boot_wait"          : "{{ user `boot_wait` }}",
             "boot_command"       : [
-                "<tab> linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg<enter><wait10><enter>"
+                "<tab>",
+                "linux",
+                " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg",
+                "<enter>",
+                "<wait10>",
+                "<enter>"
             ],
             "shutdown_command"   : "{{ user `shutdown_command` }}",
             "shutdown_timeout"   : "{{ user `shutdown_timeout` }}",
@@ -67,7 +72,12 @@
             "ssh_wait_timeout"    : "{{ user `ssh_wait_timeout` }}",
             "boot_wait"           : "{{ user `boot_wait` }}",
             "boot_command"        : [
-                "<tab> linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg<enter><wait10><enter>"
+                "<tab>",
+                "linux",
+                " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg",
+                "<enter>",
+                "<wait10>",
+                "<enter>"
             ],
             "shutdown_command"    : "{{ user `shutdown_command` }}",
             "shutdown_timeout"    : "{{ user `shutdown_timeout` }}",
