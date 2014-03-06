@@ -9,7 +9,7 @@
         "iso_checksum_type"       : "sha256",
         "ssh_username"            : "vagrant",
         "ssh_password"            : "vagrant",
-        "ssh_wait_timeout"        : "15m",
+        "ssh_wait_timeout"        : "30m",
         "boot_wait"               : "15s",
         "shutdown_command"        : "sudo shutdown -hP +1; exit",
         "shutdown_timeout"        : "5m",
@@ -30,7 +30,7 @@
     "builders"       : [
         {
             "type"               : "vmware-iso",
-            "guest_os_type"      : "fedora-64",
+            "guest_os_type"      : "ubuntu-64",
             "tools_upload_flavor": "linux",
             "vm_name"            : "{{ user `name` }}-{{ user `version` }}-{{ user `arch` }}",
             "http_directory"     : "{{ user `http_directory` }}",
@@ -67,7 +67,7 @@
         },
         {
             "type"                : "virtualbox-iso",
-            "guest_os_type"       : "Fedora_64",
+            "guest_os_type"       : "Ubuntu_64",
             "vm_name"             : "{{ user `name` }}-{{ user `version` }}-{{ user `arch` }}",
             "http_directory"      : "{{ user `http_directory` }}",
             "iso_url"             : "{{ user `iso_url` }}",

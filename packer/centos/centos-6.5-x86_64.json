@@ -9,7 +9,7 @@
         "iso_checksum_type"       : "sha256",
         "ssh_username"            : "vagrant",
         "ssh_password"            : "vagrant",
-        "ssh_wait_timeout"        : "15m",
+        "ssh_wait_timeout"        : "30m",
         "boot_wait"               : "15s",
         "shutdown_command"        : "sudo shutdown -hP +1; exit",
         "shutdown_timeout"        : "5m",
