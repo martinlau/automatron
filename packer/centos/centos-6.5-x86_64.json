@@ -4,8 +4,8 @@
         "version"                 : "6.5",
         "arch"                    : "x86_64",
         "http_directory"          : "http",
-        "iso_url"                 : "http://mirror.aarnet.edu.au/pub/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso",
-        "iso_checksum"            : "c796ab378319393f47b29acd8ceaf21e1f48439570657945226db61702a4a2a1",
+        "iso_url"                 : "http://mirror.optus.net/pub/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
+        "iso_checksum"            : "d8aaf698408c0c01843446da4a20b1ac03d27f87aad3b3b7b7f42c6163be83b9",
         "iso_checksum_type"       : "sha256",
         "ssh_username"            : "vagrant",
         "ssh_password"            : "vagrant",
@@ -42,7 +42,8 @@
             "ssh_wait_timeout"   : "{{ user `ssh_wait_timeout` }}",
             "boot_wait"          : "{{ user `boot_wait` }}",
             "boot_command"       : [
-                "<tab>",
+                "<esc>",
+                "<wait10>",
                 "linux",
                 " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg",
                 "<enter>"
@@ -70,7 +71,8 @@
             "ssh_wait_timeout"    : "{{ user `ssh_wait_timeout` }}",
             "boot_wait"           : "{{ user `boot_wait` }}",
             "boot_command"        : [
-                "<tab>",
+                "<esc>",
+                "<wait10>",
                 "linux",
                 " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart.cfg",
                 "<enter>"
