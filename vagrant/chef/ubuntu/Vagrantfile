@@ -1,20 +1,20 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.box = 'centos-6.5-x86_64'
+    config.vm.box = 'ubuntu-13.10-x86_64'
 
     config.vm.provider :virtualbox do |vb, override|
         vb.gui              = false
-        override.vm.box_url = '../../../boxes/virtualbox/centos-6.5-x86_64.box'
+        override.vm.box_url = '../../../boxes/virtualbox/ubuntu-13.10-x86_64.box'
     end
 
     config.vm.provider :vmware_fusion do |vf, override|
         vf.gui              = false
-        override.vm.box_url = '../../../boxes/vmware/centos-6.5-x86_64.box'
+        override.vm.box_url = '../../../boxes/vmware/ubuntu-13.10-x86_64.box'
     end
 
     config.vm.provision :chef_solo do |chef|
