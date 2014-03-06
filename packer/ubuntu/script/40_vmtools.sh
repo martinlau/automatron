@@ -2,9 +2,9 @@
 
 ISO_MOUNT="/media"
 VIRTUALBOX_LINUX_ADDITIONS="${ISO_MOUNT}/VBoxLinuxAdditions.run"
-VIRTUALBOX_REQUIRED_PACKAGES="build-essentials"
+VIRTUALBOX_REQUIRED_PACKAGES="build-essential"
 VMWARE_INSTALL_PL="/tmp/vmware/vmware-tools-distrib/vmware-install.pl"
-VMWARE_REQUIRED_PACKAGES="build-essentials"
+VMWARE_REQUIRED_PACKAGES="build-essential"
 VMWARE_TOOLS_TMP="/tmp/vmware"
 
 echo "Installing virtual machine tools for ${PACKER_BUILDER_TYPE}"
