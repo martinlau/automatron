@@ -7,15 +7,19 @@ Vagrant.require_version '>= 1.4.3'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.box = 'fedora-20-x86_64'
+    config.vm.define 'fedora-20-x86_64-chef' do |machine|
+        machine.vm.box = 'fedora-20-x86_64'
+    end
 
     config.vm.provider :virtualbox do |vb, override|
         vb.gui              = false
+        vb.name             = "#{config.vm.box}-chef"
         override.vm.box_url = '../../../boxes/virtualbox/fedora-20-x86_64.box'
     end
 
     config.vm.provider :vmware_fusion do |vf, override|
         vf.gui              = false
+        vf.name             = "#{config.vm.box}-chef"
         override.vm.box_url = '../../../boxes/vmware/fedora-20-x86_64.box'
     end
 
