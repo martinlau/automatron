@@ -2,7 +2,9 @@
 *.iml
 *.ipr
 *.iws
+*.lock
 .idea/
+.tmp/
 .vagrant/
 output-virtualbox-iso/
 output-vmware-iso/

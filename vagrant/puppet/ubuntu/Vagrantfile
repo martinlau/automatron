@@ -7,18 +7,18 @@ Vagrant.require_version '>= 1.4.3'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.box = 'centos-6.5-x86_64'
+    config.vm.box = 'ubuntu-13.10-x86_64'
 
     config.vm.synced_folder '../config', '/config'
 
     config.vm.provider :virtualbox do |vb, override|
         vb.gui              = false
-        override.vm.box_url = '../../../boxes/virtualbox/centos-6.5-x86_64.box'
+        override.vm.box_url = '../../../boxes/virtualbox/ubuntu-13.10-x86_64.box'
     end
 
     config.vm.provider :vmware_fusion do |vf, override|
         vf.gui              = false
-        override.vm.box_url = '../../../boxes/vmware/centos-6.5-x86_64.box'
+        override.vm.box_url = '../../../boxes/vmware/ubuntu-13.10-x86_64.box'
     end
 
     config.librarian_puppet.puppetfile_dir = '../config'
@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision :puppet do |puppet|
         puppet.manifests_path = '../config/manifests'
-        puppet.module_path    = %w(../config/site ../config/modules)
+        puppet.module_path    = '../config/site', '../config/modules'
         puppet.manifest_file  = 'site.pp'
     end
 
