@@ -19,16 +19,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.box_url = '../boxes/vmware/fedora-20-x86_64.box'
     end
 
+    # TODO Move these into the machine level definition (requires a patch to vagrant-librarian-chef)
+    machine.librarian_puppet.puppetfile_dir       = '../config/puppet'
+    machine.librarian_puppet.placeholder_filename = 'empty.txt'
+
     config.vm.define 'fedora-20-x86_64-puppet', primary: true do |machine|
 
         machine.vm.box = 'fedora-20-x86_64'
 
-        machine.librarian_puppet.puppetfile_dir       = 'puppet'
-        machine.librarian_puppet.placeholder_filename = 'empty.txt'
-
         machine.vm.provision :puppet do |puppet|
-            puppet.manifests_path = 'puppet/manifests'
-            puppet.module_path    = %w(puppet/site puppet/modules)
+            puppet.manifests_path = '../config/puppet/manifests'
+            puppet.module_path    = %w(../config/puppet/site ../config/puppet/modules)
             puppet.manifest_file  = 'site.pp'
         end
 
@@ -39,9 +40,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         machine.vm.box = 'fedora-20-x86_64'
 
         machine.vm.provision :chef_solo do |chef|
-            chef.cookbooks_path = 'chef/cookbooks'
-            chef.roles_path     = 'chef/roles'
-            chef.data_bags_path = 'chef/data_bags'
+            chef.cookbooks_path = '../config/chef/cookbooks'
+            chef.roles_path     = '../config/chef/roles'
+            chef.data_bags_path = '../config/chef/data_bags'
         end
 
     end
