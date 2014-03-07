@@ -1,20 +1,13 @@
 
+class { 'java':
+    distribution => 'jdk',
+    version => 'latest',
+}
+
 class { 'motd':
     template => 'custom/motd.erb'
 }
 
-#package { 'mariadb-server':
-#    ensure => 'latest'
-#}
-#
-#package { 'java-devel':
-#    ensure => 'latest'
-#}
-#
-#package { 'tomcat':
-#    ensure => 'latest'
-#}
-#
-#package { 'mysql-connector-java':
-#    ensure => 'latest'
-#}
+class { 'postgresql::server': }
+
+class { 'postgresql::lib::java': }
