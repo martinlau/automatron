@@ -1,5 +1,6 @@
 forge 'http://forge.puppetlabs.com'
 
+mod 'example42/tomcat'
 mod 'puppetlabs/java'
 mod 'puppetlabs/postgresql'
 mod 'saz/motd'

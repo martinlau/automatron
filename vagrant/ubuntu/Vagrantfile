@@ -1,0 +1,49 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.require_version '>= 1.4.3'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+    config.vm.provider :virtualbox do |vb, override|
+        vb.gui              = false
+        vb.name             = "#{config.vm.box}-puppet"
+        override.vm.box_url = '../boxes/virtualbox/ubuntu-13.10-x86_64.box'
+    end
+
+    config.vm.provider :vmware_fusion do |vf, override|
+        vf.gui              = false
+        vf.name             = "#{config.vm.box}-puppet"
+        override.vm.box_url = '../boxes/vmware/ubuntu-13.10-x86_64.box'
+    end
+
+    config.vm.define 'ubuntu-13.10-x86_64-puppet', primary: true do |machine|
+
+        machine.vm.box = 'ubuntu-13.10-x86_64'
+
+        machine.librarian_puppet.puppetfile_dir       = 'puppet'
+        machine.librarian_puppet.placeholder_filename = 'empty.txt'
+
+        machine.vm.provision :puppet do |puppet|
+            puppet.manifests_path = 'puppet/manifests'
+            puppet.module_path    = %w(puppet/site puppet/modules)
+            puppet.manifest_file  = 'site.pp'
+        end
+
+    end
+
+    config.vm.define 'ubuntu-13.10-x86_64-chef' do |machine|
+
+        machine.vm.box = 'ubuntu-13.10-x86_64'
+
+        machine.vm.provision :chef_solo do |chef|
+            chef.cookbooks_path = 'chef/cookbooks'
+            chef.roles_path     = 'chef/roles'
+            chef.data_bags_path = 'chef/data_bags'
+        end
+
+    end
+
+end

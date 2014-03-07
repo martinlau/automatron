@@ -1,7 +1,6 @@
-
 class { 'java':
     distribution => 'jdk',
-    version => 'latest',
+    version      => 'latest',
 }
 
 class { 'motd':
@@ -11,3 +10,5 @@ class { 'motd':
 class { 'postgresql::server': }
 
 class { 'postgresql::lib::java': }
+
+class { "tomcat": }
