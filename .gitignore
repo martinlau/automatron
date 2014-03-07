@@ -1,11 +1,28 @@
+# If we've created an empty.txt, don't ignore it!
+#
+!empty.txt
+
+# Don't check in packer generated artifacts
+#
 *.box
+packer/**/output-virtualbox-iso/
+packer/**/output-vmware-iso/
+packer/**/packer-cache/
+
+# Don't check in intellij configuration files
+#
 *.iml
 *.ipr
 *.iws
-*.lock
 .idea/
+
+# Don't check in vagrant working folders
+#
+**/.vagrant/
+
+# Don't check in puppet-librarian artifacts
+#
+*.lock
 .tmp/
-.vagrant/
-output-virtualbox-iso/
-output-vmware-iso/
-packer-cache/
+vagrant/**/puppet/modules/
+
