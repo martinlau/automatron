@@ -19,11 +19,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.box_url = '../boxes/vmware/centos-6.5-x86_64.box'
     end
 
-    # TODO Move these into the machine level definition (requires a patch to vagrant-librarian-chef)
-    machine.librarian_puppet.puppetfile_dir       = '../config/puppet'
-    machine.librarian_puppet.placeholder_filename = 'empty.txt'
-
     config.vm.define 'centos-6.5-x86_64-puppet', primary: true do |machine|
+
+        machine.librarian_puppet.puppetfile_dir       = '../config/puppet'
+        machine.librarian_puppet.placeholder_filename = 'empty.txt'
 
         machine.vm.box = 'centos-6.5-x86_64'
 
